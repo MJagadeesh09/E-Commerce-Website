@@ -3,224 +3,727 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>E-Commerce</title>
+  <title>EarpodsMate | Premium Audio Experience</title>
+  <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  
   <style>
+    :root {
+      --primary-color: #111827; /* Dark Graphite */
+      --accent-color: #3b82f6; /* Modern Blue */
+      --bg-light: #f3f4f6;
+      --text-gray: #6b7280;
+      --border-radius: 12px;
+    }
+
     body {
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Inter', sans-serif;
+      background-color: #ffffff;
+      color: var(--primary-color);
+      overflow-x: hidden;
     }
+
+    /* --- Navbar --- */
+    .navbar {
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+      padding: 1rem 0;
+    }
+    .navbar-brand {
+      font-weight: 800;
+      font-size: 1.5rem;
+      letter-spacing: -0.5px;
+      color: var(--primary-color) !important;
+      cursor: pointer;
+    }
+    .nav-link {
+      font-weight: 500;
+      color: #4b5563 !important;
+      margin: 0 10px;
+      transition: color 0.2s;
+      cursor: pointer;
+    }
+    .nav-link:hover, .nav-link.active {
+      color: var(--accent-color) !important;
+    }
+    .cart-badge {
+      background-color: var(--accent-color);
+      font-size: 0.7rem;
+      padding: 0.25em 0.6em;
+    }
+
+    /* --- Hero Section --- */
     .hero {
-      background: linear-gradient(to right, #0d6efd, #6610f2);
+      background: #000;
       color: white;
-      padding: 60px 0;
-      text-align: center;
+      padding: 100px 0;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 3rem;
     }
+    .hero-img {
+      position: absolute;
+      right: 0;
+      top: 0;
+      height: 100%;
+      width: 50%;
+      object-fit: cover;
+      opacity: 0.6;
+      mask-image: linear-gradient(to right, transparent, black);
+      -webkit-mask-image: linear-gradient(to right, transparent, black);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+    .hero h1 {
+      font-weight: 800;
+      font-size: 3.5rem;
+      letter-spacing: -1px;
+      margin-bottom: 1.5rem;
+    }
+    .btn-hero {
+      background-color: white;
+      color: black;
+      font-weight: 600;
+      padding: 12px 30px;
+      border-radius: 50px;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+      cursor: pointer;
+    }
+    .btn-hero:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(255,255,255,0.2);
+      color: var(--accent-color);
+    }
+
+    /* --- Search & Filter --- */
+    .search-container {
+      max-width: 600px;
+      margin: 0 auto 3rem auto;
+    }
+    .search-input {
+      border-radius: 50px;
+      padding: 12px 20px;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+    .search-input:focus {
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+      border-color: var(--accent-color);
+    }
+    .category-pills {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+    .cat-pill {
+      background: white;
+      border: 1px solid #e5e7eb;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .cat-pill:hover, .cat-pill.active {
+      background: var(--primary-color);
+      color: white;
+      border-color: var(--primary-color);
+    }
+
+    /* --- Product Cards --- */
+    .section-title {
+      font-weight: 700;
+      margin-bottom: 3rem;
+      position: relative;
+      display: inline-block;
+    }
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background-color: var(--accent-color);
+    }
+
     .product-card {
-      transition: transform 0.3s ease;
+      border: 1px solid #e5e7eb;
+      border-radius: var(--border-radius);
+      transition: all 0.3s ease;
+      background: white;
+      overflow: hidden;
+      height: 100%;
     }
     .product-card:hover {
-      transform: scale(1.03);
+      border-color: transparent;
+      box-shadow: 0 20px 40px -5px rgba(0,0,0,0.1);
+      transform: translateY(-5px);
     }
-    footer {
-      background-color: #f8f9fa;
-      padding: 20px 0;
+    .card-img-wrapper {
+      background-color: #f9fafb;
+      height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+    }
+    .card-img-top {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
+      transition: transform 0.3s;
+    }
+    .product-card:hover .card-img-top {
+      transform: scale(1.05);
+    }
+    .badge-new {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background-color: var(--primary-color);
+      color: white;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .card-body {
+      padding: 1.5rem;
+    }
+    .product-title {
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+    .product-price {
+      color: var(--primary-color);
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+    .btn-add-cart {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px;
+      font-weight: 500;
+      width: 100%;
+      transition: background 0.2s;
+    }
+    .btn-add-cart:hover {
+      background-color: var(--accent-color);
+      color: white;
+    }
+
+    /* --- Cart Section --- */
+    .cart-wrapper {
+      background-color: #f9fafb;
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      margin-top: 4rem;
+    }
+    .cart-item {
+      background: white;
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid #e5e7eb;
+      align-items: center;
+    }
+    .cart-item-img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      background: #f3f4f6;
+      border-radius: 8px;
+      padding: 5px;
+    }
+    .qty-btn {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      border: 1px solid #d1d5db;
+      background: white;
+      color: #374151;
+      transition: all 0.2s;
+    }
+    .qty-btn:hover {
+      background: #f3f4f6;
+      border-color: #9ca3af;
+    }
+    .qty-input {
+      width: 40px;
       text-align: center;
+      border: none;
+      background: transparent;
+      font-weight: 600;
     }
+
+    /* Footer */
+    footer {
+      background-color: #111827;
+      color: #d1d5db; /* Lightened from #9ca3af for better contrast */
+      padding: 4rem 0;
+      margin-top: 5rem;
+    }
+    .footer-link {
+        color: #d1d5db !important;
+        transition: color 0.2s;
+    }
+    .footer-link:hover {
+        color: #fff !important;
+    }
+    .social-icon {
+      width: 40px;
+      height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      color: white;
+      margin: 0 5px;
+      transition: 0.3s;
+      text-decoration: none;
+    }
+    .social-icon:hover {
+      background: var(--accent-color);
+      color: white;
+    }
+    
+    .hidden { display: none !important; }
   </style>
 </head>
 <body>
 
-  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg sticky-top">
     <div class="container">
-      <a class="navbar-brand" href="#">EarpodsMate</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
+      <a class="navbar-brand" onclick="showPage('home')">
+        <i class="fas fa-wave-square me-2 text-primary"></i>EarpodsMate
+      </a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <i class="fas fa-bars"></i>
       </button>
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Shop</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Cart</a></li>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-center">
+          <li class="nav-item"><a class="nav-link active" onclick="showPage('home')">Home</a></li>
+          <li class="nav-item"><a class="nav-link" onclick="showPage('shop')">Collection</a></li>
+          <li class="nav-item ms-lg-3">
+            <a class="btn btn-outline-dark position-relative border-0" onclick="showPage('cart')">
+              <i class="fas fa-shopping-bag fa-lg"></i>
+              <span id="nav-cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill cart-badge">0</span>
+            </a>
+          </li>
         </ul>
       </div>
     </div>
   </nav>
 
-  <section class="hero">
-    <div class="container">
-      <h1 class="display-4">Welcome to EarpodsMate</h1>
-      <p class="lead">Your one-stop shop for the best Earpod products online</p>
-      <a href="#" class="btn btn-light btn-lg mt-3">Shop Now</a>
-    </div>
-  </section>
-
-  <section class="py-5">
-    <div class="container">
-      <h2 class="text-center mb-4">Featured Products</h2>
-      <div class="row g-4">
-        <div class="col-md-4">
-          <div class="card product-card h-100">
-            <img src=649.jpg class="card-img-top" alt="Product 1">
-            <div class="card-body text-center">
-              <h5 class="card-title">Product 1</h5>
-              <p class="card-text">Rs 1200</p>
-              <a href="#" class="btn btn-primary">Add to Cart</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card product-card h-100">
-            <img src=e2.jpg class="card-img-top" alt="Product 2">
-            <div class="card-body text-center">
-              <h5 class="card-title">Product 2</h5>
-              <p class="card-text">Rs 1500</p>
-              <a href="#" class="btn btn-primary">Add to Cart</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card product-card h-100">
-            <img src="1499.jpg" class="card-img-top" alt="Product 3">
-            <div class="card-body text-center">
-              <h5 class="card-title">Product 3</h5>
-              <p class="card-text">Rs 1700</p>
-              <a href="#" class="btn btn-primary">Add to Cart</a>
+  <!-- PAGE 1: HOME (Initial View) -->
+  <div id="home-page">
+    <!-- Hero Section -->
+    <header class="hero d-flex align-items-center">
+      <img src="https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?auto=format&fit=crop&q=80&w=2070" alt="Headphones Hero" class="hero-img">
+      <div class="container hero-content">
+        <div class="row">
+          <div class="col-lg-6">
+            <span class="text-uppercase fw-bold text-primary mb-2 d-block small ls-1">New Arrival</span>
+            <h1 class="display-3">Sound That Moves You.</h1>
+            <p class="lead mb-4 opacity-75">Experience crystal clear audio with our premium range of noise-cancelling earpods.</p>
+            <div class="d-flex gap-3">
+              <!-- Clicking this button triggers the transition to the SHOP page -->
+              <a onclick="showPage('shop')" class="btn btn-hero">Shop Collection</a>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </header>
 
+    <!-- Features Section -->
+    <section class="py-5">
+        <div class="container">
+          <div class="row g-4 text-center">
+            <div class="col-md-4">
+              <div class="p-4">
+                <i class="fas fa-battery-full fa-2x text-primary mb-3"></i>
+                <h5 class="fw-bold">24h Battery Life</h5>
+                <p class="text-muted">Listen all day and night with extended battery performance.</p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="p-4">
+                <i class="fas fa-sliders-h fa-2x text-primary mb-3"></i>
+                <h5 class="fw-bold">Active Noise Cancel</h5>
+                <p class="text-muted">Immerse yourself in music, block out the world.</p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="p-4">
+                <i class="fas fa-water fa-2x text-primary mb-3"></i>
+                <h5 class="fw-bold">Water Resistant</h5>
+                <p class="text-muted">IPX7 rating makes them perfect for intense workouts.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+  </div>
+
+  <!-- PAGE 2: SHOP (Hidden by default, shown on click) -->
+  <div id="shop-page" class="hidden">
+    <section class="py-5">
+        <div class="container">
+          <div class="text-center mb-5">
+            <h2 class="section-title">Our Collection</h2>
+            <p class="text-muted">Find the perfect sound for your lifestyle.</p>
+          </div>
+
+          <!-- Search & Filter (Only visible on this page) -->
+          <div class="search-container">
+            <input type="text" id="searchInput" class="form-control search-input" placeholder="Search for headphones, earbuds...">
+          </div>
+          
+          <div class="category-pills" id="category-filters">
+            <button class="cat-pill active" onclick="filterProducts('All')">All</button>
+            <button class="cat-pill" onclick="filterProducts('Flagship')">Flagship</button>
+            <button class="cat-pill" onclick="filterProducts('Sport')">Sport</button>
+            <button class="cat-pill" onclick="filterProducts('Over-Ear')">Over-Ear</button>
+            <button class="cat-pill" onclick="filterProducts('Everyday')">Everyday</button>
+          </div>
+          
+          <div id="product-grid" class="row g-4">
+            <!-- Javascript will inject products here -->
+          </div>
+        </div>
+      </section>
+  </div>
+
+  <!-- PAGE 3: CART (Hidden by default) -->
+  <div id="cart-page" class="hidden">
+    <section class="container pb-5">
+        <div class="cart-wrapper">
+          <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
+            <h3 class="fw-bold m-0">Your Cart</h3>
+            <span class="text-muted" id="cart-items-count">0 items</span>
+          </div>
+          
+          <div id="cart-items-container">
+            <!-- Cart Items injected here -->
+          </div>
+    
+          <div class="row mt-5">
+            <div class="col-lg-6 offset-lg-6">
+              <div class="bg-white p-4 rounded-3 border">
+                <div class="d-flex justify-content-between mb-2">
+                  <span class="text-muted">Subtotal</span>
+                  <span class="fw-bold" id="cart-subtotal">Rs 0</span>
+                </div>
+                <div class="d-flex justify-content-between mb-4">
+                  <span class="text-muted">Shipping</span>
+                  <span class="text-success">Free</span>
+                </div>
+                <div class="d-flex justify-content-between border-top pt-3 mb-4">
+                  <span class="h5 fw-bold">Total</span>
+                  <span class="h5 fw-bold text-primary" id="cart-total">Rs 0</span>
+                </div>
+                <button class="btn btn-dark w-100 py-3 rounded-pill fw-bold" onclick="alert('Proceeding to secure checkout...')">
+                  Checkout Now <i class="fas fa-arrow-right ms-2"></i>
+                </button>
+                <button class="btn btn-link w-100 mt-2 text-muted text-decoration-none" onclick="showPage('shop')">
+                    Continue Shopping
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+  </div>
+
+  <!-- Footer -->
   <footer>
     <div class="container">
-      <p>&copy; 2025 EarpodsMate. All rights reserved.</p>
+      <div class="row g-4">
+        <!-- Brand -->
+        <div class="col-lg-6">
+          <h5 class="text-white fw-bold mb-3">EarpodsMate</h5>
+          <p class="small text-white-50">Premium audio gear for the modern lifestyle. Quality sound, exceptional comfort, and stylish design.</p>
+          <div class="mt-4">
+            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+        <!-- Links -->
+        <div class="col-lg-3 col-6">
+          <h6 class="text-white fw-bold mb-3">Shop</h6>
+          <ul class="list-unstyled small">
+            <li class="mb-2"><a onclick="showPage('shop')" class="text-decoration-none footer-link pointer">All Products</a></li>
+            <li class="mb-2"><a onclick="showPage('shop')" class="text-decoration-none footer-link pointer">New Arrivals</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3 col-6">
+          <h6 class="text-white fw-bold mb-3">Support</h6>
+          <ul class="list-unstyled small">
+            <li class="mb-2"><a href="#" class="text-decoration-none footer-link">Contact Us</a></li>
+            <li class="mb-2"><a href="#" class="text-decoration-none footer-link">FAQs</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-top border-secondary mt-5 pt-4 text-center small opacity-50">
+        &copy; 2025 EarpodsMate. All rights reserved.
+      </div>
     </div>
   </footer>
 
+  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   
-  <div class="container py-5">
-    <h2 class="mb-4">Your Shopping Cart</h2>
-  
-    <div class="cart-item row align-items-center" data-product-id="1">
-      <div class="col-md-6">
-        <strong>Product 1</strong><br>
-        <small>Rs 1200</small>
-      </div>
-      <div class="col-md-3">
-        <div class="input-group">
-          <button class="btn btn-outline-secondary decrease">-</button>
-          <input type="text" class="form-control text-center quantity" value="1" readonly>
-          <button class="btn btn-outline-secondary increase">+</button>
-        </div>
-      </div>
-      <div class="col-md-3 text-end">
-        <button class="btn btn-danger remove">Remove</button>
-      </div>
-    </div>
-  
-
-    <div class="cart-item row align-items-center" data-product-id="2">
-      <div class="col-md-6">
-        <strong>Product 2</strong><br>
-        <small>Rs 1700</small>
-      </div>
-      <div class="col-md-3">
-        <div class="input-group">
-          <button class="btn btn-outline-secondary decrease">-</button>
-          <input type="text" class="form-control text-center quantity" value="2" readonly>
-          <button class="btn btn-outline-secondary increase">+</button>
-        </div>
-      </div>
-      <div class="col-md-3 text-end">
-        <button class="btn btn-danger remove">Remove</button>
-      </div>
-    </div>
-  
-   
-    <div class="cart-item row align-items-center" data-product-id="3">
-      <div class="col-md-6">
-        <strong>Product 3</strong><br>
-        <small>Rs 1500</small>
-      </div>
-      <div class="col-md-3">
-        <div class="input-group">
-          <button class="btn btn-outline-secondary decrease">-</button>
-          <input type="text" class="form-control text-center quantity" value="1" readonly>
-          <button class="btn btn-outline-secondary increase">+</button>
-        </div>
-      </div>
-      <div class="col-md-3 text-end">
-        <button class="btn btn-danger remove">Remove</button>
-      </div>
-    </div>
-  
-    <div class="mt-4 text-end">
-      <h4>Total: Rs 4400</h4>
-      <button class="btn btn-success">Checkout</button>
-    </div>
-  </div>
-  
   <script>
-  
+    // --- 1. Data ---
     const products = [
-      { id: 1, price: 1200, quantity: 1 },
-      { id: 2, price: 1700, quantity: 2 },
-      { id: 3, price: 1500, quantity: 1 }, 
+      { 
+        id: 1, 
+        name: "Sonic Pro X1", 
+        category: "Flagship",
+        price: 4999, 
+        image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&q=80&w=600", 
+        desc: "Active Noise Cancellation & 30h Playtime." 
+      },
+      { 
+        id: 2, 
+        name: "AirFlow Buds", 
+        category: "Sport",
+        price: 2499, 
+        image: "https://images.unsplash.com/photo-1606220838315-056192d5e927?auto=format&fit=crop&q=80&w=600", 
+        desc: "Sweat-resistant with secure ear hooks." 
+      },
+      { 
+        id: 3, 
+        name: "Studio Master Z", 
+        category: "Over-Ear",
+        price: 8999, 
+        image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=600", 
+        desc: "High-fidelity audio for professionals." 
+      },
+      { 
+        id: 4, 
+        name: "Urban Bass", 
+        category: "Everyday",
+        price: 1999, 
+        image: "https://images.unsplash.com/photo-1572569028738-411a78e7436f?auto=format&fit=crop&q=80&w=600", 
+        desc: "Compact design with punchy bass." 
+      },
+      { 
+        id: 5, 
+        name: "Zenith ANC", 
+        category: "Flagship",
+        price: 5499, 
+        image: "https://images.unsplash.com/photo-1546435770-a3e426bf472b?auto=format&fit=crop&q=80&w=600", 
+        desc: "Industry-leading noise cancellation." 
+      },
+      { 
+        id: 6, 
+        name: "RunMate 300", 
+        category: "Sport",
+        price: 1899, 
+        image: "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?auto=format&fit=crop&q=80&w=600", 
+        desc: "Lightweight and secure for running." 
+      }
     ];
-  
-    function updateCart() {
-      let total = 0;
-  
 
-      products.forEach((product, index) => {
-        const item = document.querySelector(`.cart-item[data-product-id='${product.id}']`);
-        const quantityInput = item.querySelector('.quantity');
-        const totalPrice = product.price * product.quantity;
-  
-  
-        quantityInput.value = product.quantity;
-        total += totalPrice;
-      });
-  
-      document.querySelector('h4').textContent = `Total: $${total.toFixed(2)}`;
+    let cart = [];
+    let currentCategory = 'All';
+
+    // --- 2. Navigation Logic ---
+    function showPage(pageId) {
+        // 1. Hide all pages
+        document.getElementById('home-page').classList.add('hidden');
+        document.getElementById('shop-page').classList.add('hidden');
+        document.getElementById('cart-page').classList.add('hidden');
+        
+        // 2. Show requested page
+        document.getElementById(pageId + '-page').classList.remove('hidden');
+        
+        // 3. Update Navbar States
+        document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+        
+        // Match nav links to page
+        if(pageId === 'home') document.querySelector('.nav-link[onclick="showPage(\'home\')"]').classList.add('active');
+        if(pageId === 'shop') document.querySelector('.nav-link[onclick="showPage(\'shop\')"]').classList.add('active');
+        
+        // Scroll to top
+        window.scrollTo(0, 0);
     }
-  
-    document.querySelectorAll('.increase').forEach(button => {
-      button.addEventListener('click', () => {
-        const productId = button.closest('.cart-item').dataset.productId;
-        const product = products.find(p => p.id == productId);
-        product.quantity++;
-        updateCart();
+
+    // --- 3. Shop Logic ---
+    function filterProducts(category) {
+        currentCategory = category;
+        
+        // Update pill styles
+        document.querySelectorAll('.cat-pill').forEach(pill => {
+            pill.classList.remove('active');
+            if(pill.textContent === category) pill.classList.add('active');
+        });
+
+        renderProducts();
+    }
+
+    function renderProducts() {
+      const grid = document.getElementById('product-grid');
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      
+      const filtered = products.filter(p => {
+          const matchesCategory = currentCategory === 'All' || p.category === currentCategory;
+          const matchesSearch = p.name.toLowerCase().includes(search) || p.desc.toLowerCase().includes(search);
+          return matchesCategory && matchesSearch;
       });
-    });
-  
-    document.querySelectorAll('.decrease').forEach(button => {
-      button.addEventListener('click', () => {
-        const productId = button.closest('.cart-item').dataset.productId;
-        const product = products.find(p => p.id == productId);
-        if (product.quantity > 1) {
-          product.quantity--;
-          updateCart();
-        }
-      });
-    });
-  
-    document.querySelectorAll('.remove').forEach(button => {
-      button.addEventListener('click', () => {
-        const productId = button.closest('.cart-item').dataset.productId;
-        const productIndex = products.findIndex(p => p.id == productId);
-        products.splice(productIndex, 1);
-        updateCart();
-        button.closest('.cart-item').remove();
-      });
-    });
-  
-   
-    updateCart();
+
+      if (filtered.length === 0) {
+          grid.innerHTML = '<div class="text-center py-5 text-muted">No products found matching your criteria.</div>';
+          return;
+      }
+
+      grid.innerHTML = filtered.map(product => `
+        <div class="col-md-6 col-lg-4">
+          <div class="product-card h-100 d-flex flex-column">
+            <div class="card-img-wrapper">
+              <span class="badge-new">${product.category}</span>
+              <img src="${product.image}" class="card-img-top" alt="${product.name}">
+            </div>
+            <div class="card-body d-flex flex-column flex-grow-1">
+              <h5 class="product-title">${product.name}</h5>
+              <p class="text-muted small mb-3 flex-grow-1">${product.desc}</p>
+              <div class="d-flex justify-content-between align-items-center mt-auto">
+                <span class="product-price">₹${product.price.toLocaleString()}</span>
+              </div>
+              <button onclick="addToCart(${product.id})" class="btn-add-cart mt-3">
+                <i class="fas fa-shopping-bag me-2"></i>Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    document.getElementById('searchInput').addEventListener('input', renderProducts);
+
+    // --- 4. Cart Logic ---
+    function addToCart(productId) {
+      const product = products.find(p => p.id === productId);
+      const existingItem = cart.find(item => item.id === productId);
+
+      if (existingItem) {
+        existingItem.quantity++;
+      } else {
+        cart.push({ ...product, quantity: 1 });
+      }
+      
+      renderCart();
+    }
+
+    function renderCart() {
+      const container = document.getElementById('cart-items-container');
+      const navBadge = document.getElementById('nav-cart-count');
+      const totalEl = document.getElementById('cart-total');
+      const subtotalEl = document.getElementById('cart-subtotal');
+      const countLabel = document.getElementById('cart-items-count');
+      
+      let grandTotal = 0;
+      let totalItems = 0;
+
+      if (cart.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-5">
+            <div class="mb-3">
+              <i class="fas fa-shopping-cart fa-3x text-muted opacity-25"></i>
+            </div>
+            <h6 class="text-muted">Your cart is empty</h6>
+            <a onclick="showPage('shop')" class="btn btn-link text-decoration-none cursor-pointer">Start Shopping</a>
+          </div>`;
+      } else {
+        container.innerHTML = cart.map((item, index) => {
+          const itemTotal = item.price * item.quantity;
+          grandTotal += itemTotal;
+          totalItems += item.quantity;
+          
+          return `
+            <div class="row cart-item g-0">
+              <div class="col-3 col-md-2 text-center">
+                <img src="${item.image}" alt="${item.name}" class="cart-item-img">
+              </div>
+              <div class="col-9 col-md-4 ps-3">
+                <h6 class="fw-bold mb-1">${item.name}</h6>
+                <small class="text-muted">₹${item.price.toLocaleString()}</small>
+              </div>
+              <div class="col-6 col-md-3 mt-3 mt-md-0 ps-3">
+                <div class="d-flex align-items-center">
+                  <button class="qty-btn" onclick="updateQuantity(${index}, -1)">-</button>
+                  <input type="text" class="qty-input" value="${item.quantity}" readonly>
+                  <button class="qty-btn" onclick="updateQuantity(${index}, 1)">+</button>
+                </div>
+              </div>
+              <div class="col-5 col-md-2 text-end mt-3 mt-md-0">
+                <span class="fw-bold">₹${itemTotal.toLocaleString()}</span>
+              </div>
+              <div class="col-1 col-md-1 text-end mt-3 mt-md-0">
+                <button class="btn btn-link text-danger p-0" onclick="removeFromCart(${index})">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      const formattedTotal = `₹${grandTotal.toLocaleString()}`;
+      totalEl.textContent = formattedTotal;
+      subtotalEl.textContent = formattedTotal;
+      navBadge.textContent = totalItems;
+      countLabel.textContent = `${totalItems} items`;
+      
+      navBadge.style.display = totalItems === 0 ? 'none' : 'inline-block';
+    }
+
+    function updateQuantity(index, change) {
+      if (cart[index].quantity + change > 0) {
+        cart[index].quantity += change;
+      } else {
+        return; 
+      }
+      renderCart();
+    }
+
+    function removeFromCart(index) {
+        cart.splice(index, 1);
+        renderCart();
+    }
+
+    // --- 5. Init ---
+    window.onload = function() {
+      renderProducts();
+      renderCart();
+      // FORCE HOME PAGE ON LOAD
+      showPage('home');
+    };
   </script>
-  
 </body>
 </html>
